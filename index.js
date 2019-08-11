@@ -1,12 +1,23 @@
 const express = require('express');
 const connectDB = require('./config/db');
+const usersRoutes = require('./routes/api/users');
+const profileRoutes = require('./routes/api/profile');
+const postsRoutes = require('./routes/api/posts');
+const authRoutes = require('./routes/api/auth');
 
 const app = express();
 
 // CONNECT DATABASE
 connectDB();
 
-app.get('/', (req, res) => res.send('API running'));
+// INIT MIDDLEWARE
+app.use(express.json({ extended: false }));
+
+// DEFINE ROUTES
+app.use('/api/users', usersRoutes);
+app.use('/api/profile', profileRoutes);
+app.use('/api/posts', postsRoutes);
+app.use('/api/auth', authRoutes);
 
 const PORT = process.env.PORT || 5000;
 
