@@ -1,3 +1,4 @@
 {
-    "mongoURI": "mongodb+srv://bojan:tajnapricljivogcrva@devconnector-7dczh.mongodb.net/test?retryWrites=true&w=majority"
+    "mongoURI": "mongodb+srv://bojan:tajnapricljivogcrva@devconnector-7dczh.mongodb.net/test?retryWrites=true&w=majority",
+    "jwtSecret": "tajna"
 }
