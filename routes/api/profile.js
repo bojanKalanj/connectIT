@@ -190,4 +190,63 @@ router.delete('/experience/:exp_id', auth, async (req, res) => {
   }
 });
 
+// ADD PROFILE EDUCATION
+router.post(
+  '/education',
+  [
+    auth,
+    [
+      check('school', 'school is required')
+        .not()
+        .isEmpty(),
+      check('degree', 'degree is required')
+        .not()
+        .isEmpty(),
+      check('fieldofstudy', 'fieldofstudy is required')
+        .not()
+        .isEmpty(),
+      check('from', 'from is required')
+        .not()
+        .isEmpty()
+    ]
+  ],
+  async (req, res) => {
+    var errors = validationResult(req);
+    if (errors.errors.length > 0) res.json({ errors: errors });
+
+    var { school, degree, fieldofstudy, from, to, description } = req.body;
+
+    var edu = { school, degree, fieldofstudy, from, to, description };
+
+    try {
+      var profile = await Profile.findOne({ user: req.user.id });
+      if (!profile) res.send('No profile');
+
+      profile.education.unshift(edu);
+
+      await profile.save();
+      res.status(201).json({ msg: 'Education added' });
+    } catch (error) {
+      res.status(500).send('Server error');
+    }
+  }
+);
+
+// DELETE EDUCATION
+router.delete('/education/:edu_id', auth, async (req, res) => {
+  try {
+    var profile = await Profile.findOne({ user: req.user.id });
+    if (!profile) res.send('No profile dude');
+
+    profile.education = profile.education.filter(
+      edu => String(edu._id) !== req.params.edu_id
+    );
+
+    await profile.save();
+    res.status(200).json({ msg: 'Education removed' });
+  } catch (error) {
+    res.status(500).send('Server error');
+  }
+});
+
 module.exports = router;
