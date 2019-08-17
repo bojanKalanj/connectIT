@@ -1,4 +1,6 @@
 {
     "mongoURI": "mongodb+srv://bojan:tajnapricljivogcrva@devconnector-7dczh.mongodb.net/test?retryWrites=true&w=majority",
-    "jwtSecret": "tajna"
+    "jwtSecret": "tajna",
+    "githubClientId": "806f83bb5dc845efe930",
+    "githubSecret": "080653fddfa069724ad10fab7866a391b9270c0e"
 }
