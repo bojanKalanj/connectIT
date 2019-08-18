@@ -123,12 +123,65 @@ router.delete('/likes/:post_id', auth, async (req, res) => {
   if (!post) res.status(404).json({ msg: 'Post not found' });
 
   post.likes = post.likes.filter(
-    like => like.user.toString() !== '5d544b055ab73e2b30ed9699'
+    like => like.user.toString() !== curentUsersId
   );
 
   try {
     await post.save();
     res.json(post.likes);
+  } catch (error) {
+    res.status(500).send('Server error: ', error);
+  }
+});
+
+// ADD COMMENT
+router.post(
+  '/comment/:post_id',
+  [
+    auth,
+    [
+      check('text', 'Text is required in comment')
+        .not()
+        .isEmpty()
+    ]
+  ],
+  async (req, res) => {
+    var errors = validationResult(req);
+    if (!errors.isEmpty()) res.json({ errors: errors.array() });
+
+    var post = await Post.findById(req.params.post_id);
+    var user = await User.findById(req.user.id);
+
+    var comment = {
+      user: user.id,
+      text: req.body.text,
+      name: user.name,
+      avatar: user.avatar
+    };
+
+    post.comments.unshift(comment);
+
+    try {
+      await post.save();
+      res.status(201).json(post.comments);
+    } catch (error) {
+      res.status(500).send('Server error: ', error);
+    }
+  }
+);
+
+// REMOVE COMMENT
+router.delete('/comment/:post_id/:comment_id', auth, async (req, res) => {
+  var post = await Post.findById(req.params.post_id);
+  if (!post) res.status(401).json({ msg: 'Post not found' });
+
+  post.comments = post.comments.filter(
+    comment => comment.id.toString() !== req.params.comment_id
+  );
+
+  try {
+    await post.save();
+    res.json({ msg: 'Comment deleted' });
   } catch (error) {
     res.status(500).send('Server error: ', error);
   }
