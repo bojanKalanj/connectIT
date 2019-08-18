@@ -92,4 +92,46 @@ router.delete('/:post_id', auth, async (req, res) => {
   }
 });
 
+// ADD LIKE
+router.put('/likes/:post_id', auth, async (req, res) => {
+  var post = await Post.findById(req.params.post_id);
+  if (!post) res.status(404).json({ msg: 'Post not found' });
+
+  var curentUsersId = req.user.id,
+    alredyLiked = false;
+
+  post.likes.map(
+    like => (alredyLiked = like.user.toString() === curentUsersId)
+  );
+
+  if (alredyLiked) return res.status(401).json({ msg: 'Alredy liked' });
+
+  post.likes.unshift({ user: curentUsersId });
+
+  try {
+    await post.save();
+    res.status(200).json(post.likes);
+  } catch (error) {
+    res.status(500).send('Server error: ', error);
+  }
+});
+
+// REMOVE LIKE
+router.delete('/likes/:post_id', auth, async (req, res) => {
+  var post = await Post.findById(req.params.post_id),
+    curentUsersId = req.user.id;
+  if (!post) res.status(404).json({ msg: 'Post not found' });
+
+  post.likes = post.likes.filter(
+    like => like.user.toString() !== '5d544b055ab73e2b30ed9699'
+  );
+
+  try {
+    await post.save();
+    res.json(post.likes);
+  } catch (error) {
+    res.status(500).send('Server error: ', error);
+  }
+});
+
 module.exports = router;
