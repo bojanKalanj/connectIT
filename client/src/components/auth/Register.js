@@ -15,12 +15,34 @@ export default function Register() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault();
     if (password !== password2) {
       console.log('Password doesnt match');
     } else {
-      console.log(formData);
+      //   var newUser = {
+      //     name,
+      //     email,
+      //     password
+      //   };
+      //   var config = {
+      //     headers: {
+      //       Accept: 'application/json, text/plain, */*',
+      //       'Content-Type': 'application/json'
+      //     }
+      //   };
+      //   var body = JSON.stringify(newUser);
+      //   console.log(body);
+      //   try {
+      //     var res = await axios.post(
+      //       'http://localhost:5000/api/users',
+      //       body,
+      //       config
+      //     );
+      //     console.log(res.data);
+      //   } catch (error) {
+      //     console.log(error.response.data);
+      //   }
     }
   };
 

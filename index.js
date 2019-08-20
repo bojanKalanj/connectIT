@@ -4,6 +4,7 @@ const usersRoutes = require('./routes/api/users');
 const profileRoutes = require('./routes/api/profile');
 const postsRoutes = require('./routes/api/posts');
 const authRoutes = require('./routes/api/auth');
+const cors = require('cors');
 
 const app = express();
 
@@ -12,6 +13,8 @@ connectDB();
 
 // INIT MIDDLEWARE
 app.use(express.json({ extended: false }));
+
+app.use(cors());
 
 // DEFINE ROUTES
 app.use('/api/users', usersRoutes);
