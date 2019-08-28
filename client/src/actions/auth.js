@@ -13,6 +13,7 @@ import setAuthToken from '../util/setAuthToken';
 
 // LOAD USER
 export const loadUser = () => async dispatch => {
+  console.log('loadUser');
   // Set header
   if (localStorage.token) {
     setAuthToken(localStorage.token);
