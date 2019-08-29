@@ -9,6 +9,7 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Alert from './components/layout/Alert';
 import Dashboard from './components/dashboard/Dashboard';
+import CreateProfile from './components/profile-form/CreateProfile';
 import ProtectedRoute from './routing/ProtectedRoute';
 import setAuthToken from './util/setAuthToken';
 
@@ -39,6 +40,7 @@ function App() {
             <Switch>
               <Route exact path='/register' component={Register} />
               <Route exact path='/login' component={Login} />
+              <Route exact path='/create-profile' component={CreateProfile} />
               <ProtectedRoute exact path='/dashboard' component={Dashboard} />
               {/* <Route exact path='/dashboard' component={Dashboard} /> */}
             </Switch>
