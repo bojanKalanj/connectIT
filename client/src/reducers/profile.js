@@ -5,7 +5,7 @@ import {
 } from '../actions/types';
 
 var initialState = {
-  profil: {},
+  profile: null,
   profiles: [],
   repos: [],
   loading: true,
