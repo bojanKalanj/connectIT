@@ -151,7 +151,9 @@ router.put(
   ],
   async (req, res) => {
     const errors = validationResult(req);
-    // if (errors) res.status(400).json({ errors: errors.array() });
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
 
     const {
       title,
@@ -203,7 +205,7 @@ router.post(
       check('degree', 'degree is required')
         .not()
         .isEmpty(),
-      check('fieldofstudy', 'fieldofstudy is required')
+      check('fieldofstudy', 'field of study is required')
         .not()
         .isEmpty(),
       check('from', 'from is required')
@@ -212,8 +214,13 @@ router.post(
     ]
   ],
   async (req, res) => {
-    var errors = validationResult(req);
-    if (errors.errors.length > 0) res.json({ errors: errors });
+    // var errors = validationResult(req);
+    // if (errors.errors.length > 0) return res.json({ errors: errors });
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
 
     var { school, degree, fieldofstudy, from, to, description } = req.body;
 

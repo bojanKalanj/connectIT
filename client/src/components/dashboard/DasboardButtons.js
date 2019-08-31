@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 const DasboardButtons = () => {
   return (
-    <div class='dash-buttons'>
-      <Link to='/edit-profile' class='btn btn-light'>
+    <div className='dash-buttons'>
+      <Link to='/edit-profile' className='btn btn-light'>
         <i className='fas fa-user-circle text-primary'></i> Edit Profile
       </Link>
       <Link to='/add-experience' className='btn btn-light'>

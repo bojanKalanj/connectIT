@@ -11,6 +11,8 @@ import Alert from './components/layout/Alert';
 import Dashboard from './components/dashboard/Dashboard';
 import CreateProfile from './components/profile-form/CreateProfile';
 import EditProfile from './components/profile-form/EditProfile';
+import AddExperience from './components/profile-form/AddExperience';
+import AddEducation from './components/profile-form/AddEducation';
 import ProtectedRoute from './routing/ProtectedRoute';
 import setAuthToken from './util/setAuthToken';
 
@@ -48,6 +50,16 @@ function App() {
                 component={EditProfile}
               />
               <ProtectedRoute exact path='/dashboard' component={Dashboard} />
+              <ProtectedRoute
+                exact
+                path='/add-experience'
+                component={AddExperience}
+              />
+              <ProtectedRoute
+                exact
+                path='/add-education'
+                component={AddEducation}
+              />
               {/* <Route exact path='/dashboard' component={Dashboard} /> */}
             </Switch>
           </section>

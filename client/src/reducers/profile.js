@@ -1,7 +1,8 @@
 import {
   GET_PROFILE,
   GET_PROFILE_ERROR,
-  CLEAR_PROFILE
+  CLEAR_PROFILE,
+  UPDATE_PROFILE
 } from '../actions/types';
 
 var initialState = {
@@ -16,6 +17,7 @@ export default function(state = initialState, action) {
   var { type, payload } = action;
   switch (type) {
     case GET_PROFILE:
+    case UPDATE_PROFILE:
       return {
         ...state,
         profile: payload,
