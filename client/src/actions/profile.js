@@ -1,6 +1,64 @@
 import axios from 'axios';
-import { GET_PROFILE, GET_PROFILE_ERROR, UPDATE_PROFILE } from './types';
+import {
+  GET_PROFILE,
+  GET_PROFILE_ERROR,
+  UPDATE_PROFILE,
+  GET_ALL_PROFILES,
+  GET_GITHUB_REPO,
+  CLEAR_PROFILE
+} from './types';
 import { setAlert } from './alert';
+
+// GET ALL PROFILES
+export const getAllProfiles = () => async dispatch => {
+  dispatch({ type: CLEAR_PROFILE });
+  try {
+    var res = await axios.get('http://localhost:5000/api/profile');
+
+    dispatch({
+      type: GET_ALL_PROFILES,
+      payload: res.data
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// GET PROFILE BY USER ID
+export const getProfileById = user_id => async dispatch => {
+  try {
+    var res = await axios.get(
+      `http://localhost:5000/api/profile/user/${user_id}`
+    );
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_PROFILE_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status }
+    });
+  }
+};
+
+// GET USER REPOS FROM GITHUB
+export const getUserRepoFromGithub = username => async dispatch => {
+  try {
+    var repo = await axios.get(
+      `http://localhost:5000/api/profile/github/${username}`
+    );
+    dispatch({
+      type: GET_GITHUB_REPO,
+      payload: repo.data
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_PROFILE_ERROR,
+      payload: { msg: error.response.statusText, status: error.response.status }
+    });
+  }
+};
 
 // Get current users profile
 export const getCurrentProfile = () => async dispatch => {

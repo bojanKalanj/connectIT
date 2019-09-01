@@ -118,13 +118,13 @@ const AddEducation = ({ addEducation, history }) => {
   );
 };
 
-AddEducation.propTypes = {};
-
-const mapStateToProps = state => ({});
+AddEducation.propTypes = {
+  addEducation: PropTypes.func.isRequired
+};
 
 export default withRouter(
   connect(
-    mapStateToProps,
+    null,
     { addEducation }
   )(AddEducation)
 );

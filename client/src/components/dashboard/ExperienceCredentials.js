@@ -7,8 +7,6 @@ import { connect } from 'react-redux';
 import { deleteExperience } from '../../actions/profile';
 
 const ExperienceCredentials = ({ experience = [], deleteExperience }) => {
-  console.log(experience);
-
   var experiences = experience.map(exp => {
     return (
       <tr key={exp._id}>
