@@ -4,9 +4,10 @@ import Moment from 'react-moment';
 import moment from 'moment';
 
 import { connect } from 'react-redux';
+import { deleteEducation } from '../../actions/profile';
 
-const EducationCredentials = ({ education }) => {
-  var education = education.map(e => {
+const EducationCredentials = ({ education = [], deleteEducation }) => {
+  var educations = education.map(e => {
     return (
       <tr key={e._id}>
         <td>{e.school}</td>
@@ -20,7 +21,12 @@ const EducationCredentials = ({ education }) => {
           )}
         </td>
         <td>
-          <button className='btn btn-danger'>Delete</button>
+          <button
+            onClick={() => deleteEducation(e._id)}
+            className='btn btn-danger'
+          >
+            Delete
+          </button>
         </td>
       </tr>
     );
@@ -40,7 +46,7 @@ const EducationCredentials = ({ education }) => {
             </tr>
           </thead>
           <tbody>
-            <Fragment>{education}</Fragment>
+            <Fragment>{educations}</Fragment>
           </tbody>
         </table>
       </Fragment>
@@ -49,11 +55,15 @@ const EducationCredentials = ({ education }) => {
 };
 
 EducationCredentials.propTypes = {
-  education: PropTypes.array.isRequired
+  education: PropTypes.array
 };
 
 const mapStateToProps = ({ profile }) => ({
-  education: profile.profile.education
+  education: profile.profile.education,
+  deleteEducation: PropTypes.func.isRequired
 });
 
-export default connect(mapStateToProps)(EducationCredentials);
+export default connect(
+  mapStateToProps,
+  { deleteEducation }
+)(EducationCredentials);

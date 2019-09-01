@@ -2,18 +2,19 @@ import axios from 'axios';
 import { GET_PROFILE, GET_PROFILE_ERROR, UPDATE_PROFILE } from './types';
 import { setAlert } from './alert';
 
+// Get current users profile
 export const getCurrentProfile = () => async dispatch => {
   try {
-    var res = await axios.get('http://localhost:5000/api/profile/me');
+    const res = await axios.get('http://localhost:5000/api/profile/me');
 
     dispatch({
       type: GET_PROFILE,
       payload: res.data
     });
-  } catch (error) {
+  } catch (err) {
     dispatch({
       type: GET_PROFILE_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status }
+      payload: { msg: 'err.response.statusText, status: err.response.status' }
     });
   }
 };
@@ -54,7 +55,9 @@ export const createProfile = (formData, history, edit) => async dispatch => {
 
     dispatch({
       type: GET_PROFILE_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status }
+      payload: {
+        msg: 'error.response.statusText, status: error.response.status'
+      }
     });
   }
 };
@@ -81,17 +84,37 @@ export const addExperience = (expData, history) => async dispatch => {
 
     history.push('/dashboard');
   } catch (error) {
-    var errors = error.response.data.errors;
-    if (errors) {
-      console.log(errors);
-      errors.forEach(error => {
-        dispatch(setAlert(error.msg, 'danger'));
-      });
-    }
+    // var errors = error.response.data.errors;
+    // if (errors) {
+    //   console.log(errors);
+    //   errors.forEach(error => {
+    //     dispatch(setAlert(error.msg, 'danger'));
+    //   });
+    // }
+    console.log(error);
     dispatch({
       type: GET_PROFILE_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status }
+      payload: {
+        msg: 'error.response.statusText, status: error.response.status'
+      }
     });
+  }
+};
+
+// DELETE EXPERIENCE
+export const deleteExperience = expId => async dispatch => {
+  try {
+    var res = await axios.delete(
+      `http://localhost:5000/api/profile/experience/${expId}`
+    );
+
+    dispatch(setAlert('Experience removed', 'succes'));
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data
+    });
+  } catch (error) {
+    dispatch(setAlert('Error'));
   }
 };
 
@@ -125,7 +148,25 @@ export const addEducation = (expData, history) => async dispatch => {
     }
     dispatch({
       type: GET_PROFILE_ERROR,
-      payload: { msg: error.response.statusText, status: error.response.status }
+      payload: {
+        msg: 'error.response.statusText, status: error.response.status'
+      }
     });
+  }
+};
+
+// DELETE EDUCATION
+export const deleteEducation = eduID => async dispatch => {
+  try {
+    var res = await axios.delete(
+      `http://localhost:5000/api/profile/education/${eduID}`
+    );
+    dispatch(setAlert('Education removed', 'success'));
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data
+    });
+  } catch (error) {
+    console.log(error);
   }
 };
