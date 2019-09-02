@@ -98,7 +98,7 @@ router.post(
 router.get('/', async (req, res) => {
   try {
     var profiles = await Profile.find({}).populate('user', ['name', 'avatar']);
-    res.status(400).json(profiles);
+    res.status(200).json(profiles);
   } catch (error) {
     res.send(error);
   }

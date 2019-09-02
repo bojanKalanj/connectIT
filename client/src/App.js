@@ -3,18 +3,20 @@ import './App.css';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import ProtectedRoute from './routing/ProtectedRoute';
+import setAuthToken from './util/setAuthToken';
+
 import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Alert from './components/layout/Alert';
 import Dashboard from './components/dashboard/Dashboard';
+import Profiles from './components/profiles/Profiles';
 import CreateProfile from './components/profile-form/CreateProfile';
 import EditProfile from './components/profile-form/EditProfile';
 import AddExperience from './components/profile-form/AddExperience';
 import AddEducation from './components/profile-form/AddEducation';
-import ProtectedRoute from './routing/ProtectedRoute';
-import setAuthToken from './util/setAuthToken';
 
 // Redux
 import { Provider } from 'react-redux';
@@ -41,6 +43,7 @@ function App() {
           <section className='container'>
             <Alert />
             <Switch>
+              <Route exact path='/profiles' component={Profiles} />
               <Route exact path='/register' component={Register} />
               <Route exact path='/login' component={Login} />
               <Route exact path='/create-profile' component={CreateProfile} />
