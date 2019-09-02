@@ -114,7 +114,7 @@ router.get('/user/:user_id', async (req, res) => {
 
     if (!profile) res.status(404).send({ msg: 'Profile not found' });
 
-    res.status(400).json(profile);
+    res.status(200).json(profile);
   } catch (error) {
     if (profile == 'ObjectId')
       res.status(404).send({ msg: 'Profile not found' });
@@ -263,7 +263,7 @@ router.get('/github/:username', (req, res) => {
     const options = {
       uri: `https://api.github.com/users/${
         req.params.username
-      }/repos?per_page=5&sort=created:asc&client_id=${config.get(
+      }/repos?per_page=15&sort=created:asc&client_id=${config.get(
         'githubClientId'
       )}&client_secret=${config.get('githubSecret')}`,
       method: 'GET',

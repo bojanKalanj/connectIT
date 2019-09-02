@@ -35,6 +35,7 @@ export const getProfileById = user_id => async dispatch => {
       payload: res.data
     });
   } catch (error) {
+    console.log(error);
     dispatch({
       type: GET_PROFILE_ERROR,
       payload: { msg: error.response.statusText, status: error.response.status }
@@ -100,9 +101,7 @@ export const createProfile = (formData, history, edit) => async dispatch => {
 
     dispatch(setAlert(edit ? 'Profile updated' : 'Profile created'));
 
-    if (!edit) {
-      history.push('/dashboard');
-    }
+    history.push('/dashboard');
   } catch (error) {
     var errors = error.response.data.errors;
     if (errors) {

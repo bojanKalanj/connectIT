@@ -594,3 +594,7 @@ button {
     padding: 0.3rem 0.4rem;
   }
 }
+
+.capitalize {
+  text-transform: capitalize
+}

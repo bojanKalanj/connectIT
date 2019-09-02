@@ -12,6 +12,7 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Alert from './components/layout/Alert';
 import Dashboard from './components/dashboard/Dashboard';
+import Profile from './components/profile/Profile';
 import Profiles from './components/profiles/Profiles';
 import CreateProfile from './components/profile-form/CreateProfile';
 import EditProfile from './components/profile-form/EditProfile';
@@ -32,8 +33,6 @@ function App() {
     store.dispatch(loadUser());
   }, []);
 
-  console.log(store.getState());
-
   return (
     <Provider store={store}>
       <Router>
@@ -53,6 +52,7 @@ function App() {
                 component={EditProfile}
               />
               <ProtectedRoute exact path='/dashboard' component={Dashboard} />
+              <ProtectedRoute exact path='/profile/:id' component={Profile} />
               <ProtectedRoute
                 exact
                 path='/add-experience'
