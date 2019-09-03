@@ -5,15 +5,14 @@ import Spinner from '../layout/Spinner';
 import { getUserRepoFromGithub } from '../../actions/profile';
 
 const ProfileGithub = ({ username, getUserRepoFromGithub, repos }) => {
-  console.log('username: ', username);
   useEffect(() => {
-    getUserRepoFromGithub('bojanKalanj');
+    getUserRepoFromGithub(username);
   }, [getUserRepoFromGithub]);
 
   return (
     <div className='profile-github'>
       <h2 className='text-primary my-1'>Github Repos</h2>
-      {repos === null ? (
+      {!repos ? (
         <Spinner />
       ) : (
         repos.map(repo => (

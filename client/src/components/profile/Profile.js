@@ -22,7 +22,7 @@ const Profile = ({
 
   return (
     <Fragment>
-      {profile === null || loading ? (
+      {!profile || loading ? (
         <Spinner />
       ) : (
         <Fragment>
@@ -30,7 +30,7 @@ const Profile = ({
             Back To Profiles
           </Link>
           {auth.isAuthenticated &&
-            auth.loading === false &&
+            !auth.loading &&
             auth.user._id === profile.user._id && (
               <Link to='/edit-profile' className='btn btn-dark'>
                 Edit Profile

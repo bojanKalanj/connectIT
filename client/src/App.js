@@ -18,6 +18,7 @@ import CreateProfile from './components/profile-form/CreateProfile';
 import EditProfile from './components/profile-form/EditProfile';
 import AddExperience from './components/profile-form/AddExperience';
 import AddEducation from './components/profile-form/AddEducation';
+import Posts from './components/posts/Posts';
 
 // Redux
 import { Provider } from 'react-redux';
@@ -63,6 +64,7 @@ function App() {
                 path='/add-education'
                 component={AddEducation}
               />
+              <ProtectedRoute exact path='/posts' component={Posts} />
               {/* <Route exact path='/dashboard' component={Dashboard} /> */}
             </Switch>
           </section>
