@@ -8,7 +8,7 @@ var initialState = {
 };
 
 export default function(state = initialState, action) {
-  var { type, payload } = state;
+  var { type, payload } = action;
 
   switch (type) {
     case GET_POSTS:
