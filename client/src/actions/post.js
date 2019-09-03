@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_POSTS, POST_ERROR, ADD_POST } from './types';
+import { GET_POSTS, POST_ERROR, ADD_POST, DELETE_POST } from './types';
 import { setAlert } from './alert';
 
 // GET ALL POSTS
@@ -26,6 +26,10 @@ export const getAllPosts = () => async dispatch => {
 export const deletePost = postId => async dispatch => {
   try {
     var res = await axios.delete(`http://localhost:5000/api/posts/${postId}`);
+    dispatch({
+      type: DELETE_POST,
+      payload: postId
+    });
     dispatch(setAlert('Post removed'));
   } catch (error) {
     dispatch({
