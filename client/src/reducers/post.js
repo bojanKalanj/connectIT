@@ -4,8 +4,10 @@ import {
   ADD_POST,
   DELETE_POST,
   GET_POST,
-  UPDATE_LIKES
+  UPDATE_LIKES,
+  ADD_COMMENT
 } from '../actions/types';
+import { stat } from 'fs';
 
 var initialState = {
   post: null,
@@ -56,6 +58,12 @@ export default function(state = initialState, action) {
             post._id === payload.id ? { ...post, likes: payload.likes } : post
           // post._id === payload.id ? { ...post, likes: payload.likes } : {...post}
         ),
+        loading: false
+      };
+    case ADD_COMMENT:
+      return {
+        ...state,
+        post: { ...stat.post, comments: payload },
         loading: false
       };
     default:
