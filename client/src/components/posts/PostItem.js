@@ -4,12 +4,15 @@ import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 
 import { connect } from 'react-redux';
-import { deletePost } from '../../actions/post';
+import { deletePost, addLike, removeLike } from '../../actions/post';
 
 const PostItem = ({
   auth,
   post: { _id, text, name, avatar, user, likes, comments, date },
-  deletePost
+  deletePost,
+  addLike,
+  removeLike,
+  showActions
 }) => (
   <div className='post bg-white p-1 my-1'>
     <div>
@@ -23,14 +26,22 @@ const PostItem = ({
       <p className='post-date'>
         Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
       </p>
-      <button type='button' className='btn btn-light'>
+      <button
+        onClick={() => addLike(_id)}
+        type='button'
+        className='btn btn-light'
+      >
         <i className='fas fa-thumbs-up' />{' '}
         <span>{likes.length > 0 && <span>{likes.length}</span>}</span>
       </button>
-      <button type='button' className='btn btn-light'>
+      <button
+        onClick={() => removeLike(_id)}
+        type='button'
+        className='btn btn-light'
+      >
         <i className='fas fa-thumbs-down' />
       </button>
-      <Link to={`/post/${_id}`} className='btn btn-primary'>
+      <Link to={`/posts/${_id}`} className='btn btn-primary'>
         Discussion{' '}
         {comments.length > 0 && (
           <span className='comment-count'>{comments.length}</span>
@@ -51,7 +62,9 @@ const PostItem = ({
 
 PostItem.propTypes = {
   post: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  addLike: PropTypes.func.isRequired,
+  removeLike: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -60,5 +73,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { deletePost }
+  { deletePost, addLike, removeLike }
 )(PostItem);

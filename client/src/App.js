@@ -19,6 +19,7 @@ import EditProfile from './components/profile-form/EditProfile';
 import AddExperience from './components/profile-form/AddExperience';
 import AddEducation from './components/profile-form/AddEducation';
 import Posts from './components/posts/Posts';
+import Post from './components/post/Post';
 
 // Redux
 import { Provider } from 'react-redux';
@@ -65,6 +66,7 @@ function App() {
                 component={AddEducation}
               />
               <ProtectedRoute exact path='/posts' component={Posts} />
+              <ProtectedRoute exact path='/posts/:id' component={Post} />
               {/* <Route exact path='/dashboard' component={Dashboard} /> */}
             </Switch>
           </section>
